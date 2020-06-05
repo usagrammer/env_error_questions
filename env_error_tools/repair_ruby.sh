@@ -43,20 +43,49 @@ read input
 
 if [ $input = y -o $input = ｙ ] ; then
   RBENV_GLOBAL=`rbenv global`
-printf "\e[31m
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-パスワードの入力を求められたらMacのパスワードを入力してください。
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\e[m
-"
-
-sudo cd .
 printf "\e[32m
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 rubyの入れ直しを行います。
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \e[m
 "
+
+printf "\e[32m
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+opensslの入れ直しを行います。
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\e[m
+"
+
+  brew uninstall --ignore-dependencies openssl
+  brew uninstall --ignore-dependencies openssl
+printf "\e[31m
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+パスワードの入力を求められたらMacのパスワードを入力してください。
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\e[m
+"
+  sudo rm -rf /usr/local/etc/openssl@1.1
+  sudo rm -rf /usr/local/etc/openssl
+  brew install openssl
+
+  sed -i .bak '/export PATH=\/usr\/local\/opt\/openssl/d' ~/.$ENV_FILE
+  echo "export PATH=`brew --prefix openssl`/bin:\$PATH" >> ~/.$ENV_FILE
+  PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+  source ~/.$ENV_FILE
+  OPENSSL_VERSION=`openssl version`
+  OPENSSL_VERSION=(`echo $OPENSSL_VERSION`)
+  brew switch openssl $OPENSSL_VERSION[2]
+
+printf "\e[32m
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+opensslの入れ直しが完了しました。
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\e[m
+"
+
+  sudo cd .
+
   RUBY_VERSIONS=($(ls -1 ~/.rbenv/versions))
   sudo rm -rf $(gem environment gemdir)/specifications/default
 
@@ -67,6 +96,10 @@ rubyの入れ直しを行います。
   BUNDLER_VERSIONS=($(gem list ^bundler$))
   BUNDLER_VERSIONS=`echo $BUNDLER_VERSIONS | cut -d"(" -f2 | cut -d")" -f1 | sed 's/,//g'`
   BUNDLER_VERSIONS=($(echo $BUNDLER_VERSIONS))
+
+  if [[ $RAILS_VERSIONS == "" ]] ; then RAILS_VERSIONS="6.0.2" ; fi
+  if [[ $BUNDLER_VERSIONS == "" ]] ; then BUNDLER_VERSIONS="2.1.4" ; fi
+
 printf "
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 rubyを全て削除します。
@@ -148,15 +181,6 @@ rubyの入れ直しはしません。
 "
 fi
 
-printf "\e[31m
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-パスワードの入力を求められたらMacのパスワードを入力してください。
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\e[m
-"
-
-sudo cd .
-
 printf "\e[32m
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 bundle configを修正します。
@@ -172,6 +196,14 @@ gemを修正します。
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \e[m
 "
+
+printf "\e[31m
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+パスワードの入力を求められたらMacのパスワードを入力してください。
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\e[m
+"
+
 sudo chown -R $(whoami) $(gem environment gemdir)
 sudo rm -rf $(gem environment gemdir)/specifications/default
 gem update --system
