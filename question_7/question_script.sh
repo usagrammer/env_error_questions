@@ -10,6 +10,7 @@ ENV_QUESTION_NUMBER=""
 
 gem install rails -v 5.2.4
 bundle
+rails d devise user
 rails g devise user
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
@@ -25,7 +26,7 @@ deviseの導入中ですがrails sでエラーが出るようになってしま�
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-`method_missing': undefined method `devise' for User
+'method_missing': undefined method 'devise' for User
  (call 'User.connection' to establish a connection):Class (NoMethodError)
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
