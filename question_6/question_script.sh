@@ -1,4 +1,12 @@
 ENV_QUESTION_NUMBER="6問目_"
+
+printf "\e[31m
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Macのパスワードを入力してください。
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\e[m
+"
+sudo cd ..
+
 source ~/projects/env_error_questions/env_error_tools/script.sh
 
 if [[ $SETTINGS_COMPLETE != "true" ]] ; then
@@ -8,11 +16,14 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-gem uninstall rails -v 5.1.0
-gem uninstall railties -v 5.1.0
+echo y | sudo gem uninstall rails -v 5.1.0
+echo y | sudo gem uninstall railties -v 5.1.0
 sed -i .bak '/rbenv init/d' ~/.$ENV_FILE
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 source ~/.$ENV_FILE
+
+echo y | sudo gem uninstall rails -v 5.1.0
+echo y | sudo gem uninstall railties -v 5.1.0
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
