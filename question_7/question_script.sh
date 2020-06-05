@@ -11,6 +11,7 @@ ENV_QUESTION_NUMBER=""
 gem install rails -v 5.2.4
 bundle
 rails d devise user
+rails d devise:install
 rails g devise user
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
