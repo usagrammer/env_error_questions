@@ -38,15 +38,6 @@ if [[ $EXIT == "true" ]] ; then
 fi
 
 printf "
-【terminal-notifier】:チェック中...
-"
-source ~/projects/env_error_questions/env_error_tools/notifier_install.sh
-
-printf "
-【terminal-notifier】:チェック完了...
-"
-
-printf "
 【mysql】:チェック中...
 "
 source ~/projects/env_error_questions/env_error_tools/mysql_checker.sh
