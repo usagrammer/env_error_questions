@@ -1,4 +1,12 @@
-ENV_QUESTION_NUMBER="7問目_"
+ENV_QUESTION_NUMBER="6問目_"
+
+printf "\e[31m
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Macのパスワードを入力してください。
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\e[m
+"
+sudo cd ..
+
 source ~/projects/env_error_questions/env_error_tools/script.sh
 
 if [[ $SETTINGS_COMPLETE != "true" ]] ; then
@@ -8,11 +16,14 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-gem install rails -v 5.2.4
-bundle
-rails d devise user
-rails d devise:install
-rails g devise user
+echo y | sudo gem uninstall rails -v 5.1.0
+echo y | sudo gem uninstall railties -v 5.1.0
+sed -i .bak '/rbenv init/d' ~/.$ENV_FILE
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+source ~/.$ENV_FILE
+
+echo y | sudo gem uninstall rails -v 5.1.0
+echo y | sudo gem uninstall railties -v 5.1.0
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
@@ -23,16 +34,21 @@ source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-deviseの導入中ですがrails sでエラーが出るようになってしまったそうです。
+rails newで次のエラーが発生して上手くいかないようです。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-'method_missing': undefined method 'devise' for User
- (call 'User.connection' to establish a connection):Class (NoMethodError)
+Rails is not currently installed on this system. To get the latest version, simply type:
+
+    $ sudo gem install rails
+
+You can then rerun your "rails" command.
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-rails sが成功するようにしてください。
+次のコマンドが成功するようにしてください。
+
+rails _5.1.0_ new env_error_rails_new -d mysql
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 "

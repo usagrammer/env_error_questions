@@ -1,12 +1,4 @@
-ENV_QUESTION_NUMBER="11問目_"
-printf "\e[31m
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Macのパスワードを入力してください。
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\e[m
-"
-
-sudo cd ..
-
+ENV_QUESTION_NUMBER="10問目_"
 source ~/projects/env_error_questions/env_error_tools/script.sh
 
 if [[ $SETTINGS_COMPLETE != "true" ]] ; then
@@ -16,17 +8,39 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-sudo chown _mysql:_mysql /private/tmp
-sudo chmod 755 /private/tmp
+gem uninstall -aIx mysql2
 
+mysql.server stop
 brew uninstall mysql@$MYSQL_VER
+rm -rf /usr/local/var/mysql
+brew install mysql@$OTHER_MYSQL_VER
+
+sed -i .bak '/mysql@/d' ~/.$ENV_FILE
+echo "export PATH=/usr/local/opt/mysql@$OTHER_MYSQL_VER/bin:\$PATH" >> ~/.$ENV_FILE
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+source ~/.$ENV_FILE
+
+rm /tmp/mysql.sock
+rm /tmp/mysql.sock.lock
+pkill -kill -f mysql
+mysql.server start
+
+bundle
+
+mysql.server stop
 brew uninstall mysql@$OTHER_MYSQL_VER
 rm -rf /usr/local/var/mysql
 brew install mysql@$MYSQL_VER
 
-sudo rm /tmp/mysql.sock
-sudo rm /tmp/mysql.sock.lock
-sudo pkill -kill -f mysql
+sed -i .bak '/mysql@/d' ~/.$ENV_FILE
+echo "export PATH=/usr/local/opt/mysql@$MYSQL_VER/bin:\$PATH" >> ~/.$ENV_FILE
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+source ~/.$ENV_FILE
+
+rm /tmp/mysql.sock
+rm /tmp/mysql.sock.lock
+pkill -kill -f mysql
+mysql.server start
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
@@ -37,22 +51,17 @@ source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-色々触っているとmysqlが起動できなくなってしまったようです。
+最近mysqlが不調になってしまい直してもらったそうですがrails db:createが上手くいかないようです。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Starting MySQL
-./usr/local/Cellar/mysql@5.7/5.7.29/bin/mysqld_safe: line 647: /usr/local/var/mysql/$(hostname).err: No such file or directory
-Logging to '/usr/local/var/mysql/$(hostname).err'.
-/usr/local/Cellar/mysql@5.7/5.7.29/bin/mysqld_safe: line 144: /usr/local/var/mysql/$(hostname).err: No such file or directory
-/usr/local/Cellar/mysql@5.7/5.7.29/bin/mysqld_safe: line 198: /usr/local/var/mysql/$(hostname).err: No such file or directory
-/usr/local/Cellar/mysql@5.7/5.7.29/bin/mysqld_safe: line 906: /usr/local/var/mysql/$(hostname).err: No such file or directory
-/usr/local/Cellar/mysql@5.7/5.7.29/bin/mysqld_safe: line 144: /usr/local/var/mysql/$(hostname).err: No such file or directory
- ERROR! The server quit without updating PID file (/usr/local/var/mysql/$(hostname).pid).
+rails aborted!
+LoadError: dlopen(/Users/tech-camo/.rbenv/versions/2.6.5/lib/ruby/gems/2.6.0/gems/mysql2-0.5.3/lib/mysql2/mysql2.bundle, 9):
+Library not loaded: /usr/local/opt/mysql@5.6/lib/libmysqlclient.20.dylib
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-mysql.server startが成功するようにしてください。
+rails db:createが成功するようにしてあげてください。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 "

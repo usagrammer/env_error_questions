@@ -1,4 +1,4 @@
-ENV_QUESTION_NUMBER="9問目_"
+ENV_QUESTION_NUMBER="8問目_"
 source ~/projects/env_error_questions/env_error_tools/script.sh
 
 if [[ $SETTINGS_COMPLETE != "true" ]] ; then
@@ -8,9 +8,9 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-brew uninstall mysql@$MYSQL_VER
-rm -rf /usr/local/var/mysql
-brew install mysql@$MYSQL_VER
+gem install rails -v 5.2.4
+bundle config --delete without
+bundle install --without development test
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
@@ -21,16 +21,17 @@ source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-mysqlを入れ直してみたもののmysql.server startで起動できないようです。
+rails sで以下のエラーが発生して上手くいかないようです。自分で色々と試行錯誤したそうですがお手上げとのことです。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Starting MySQL
-... ERROR! The server quit without updating PID file (/usr/local/var/mysql/ユーザー名.local.pid).
+rails aborted!
+LoadError: Could not load the 'listen' gem. Add gem 'listen' to the development group of your Gemfile
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-mysql.server startが成功するようにしてください。
+rails sが成功するようにしてください。
+※rails s起動後にlocalhost:3000にアクセスするとデータベースが無いというエラーが出ますがrails sが出来れば問題ありません。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 "

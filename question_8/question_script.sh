@@ -1,4 +1,4 @@
-ENV_QUESTION_NUMBER="8問目_"
+ENV_QUESTION_NUMBER="7問目_"
 source ~/projects/env_error_questions/env_error_tools/script.sh
 
 if [[ $SETTINGS_COMPLETE != "true" ]] ; then
@@ -9,8 +9,10 @@ fi
 ENV_QUESTION_NUMBER=""
 
 gem install rails -v 5.2.4
-bundle config --delete without
-bundle install --without development test
+bundle
+rails d devise user
+rails d devise:install
+rails g devise user
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
@@ -21,17 +23,16 @@ source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-rails sで以下のエラーが発生して上手くいかないようです。自分で色々と試行錯誤したそうですがお手上げとのことです。
+deviseの導入中ですがrails sでエラーが出るようになってしまったそうです。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-rails aborted!
-LoadError: Could not load the 'listen' gem. Add gem 'listen' to the development group of your Gemfile
+'method_missing': undefined method 'devise' for User
+ (call 'User.connection' to establish a connection):Class (NoMethodError)
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 rails sが成功するようにしてください。
-※rails s起動後にlocalhost:3000にアクセスするとデータベースが無いというエラーが出ますがrails sが出来れば問題ありません。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 "
