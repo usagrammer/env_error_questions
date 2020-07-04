@@ -6,7 +6,7 @@ QDIR=`pwd`
 
 cd ~/projects/env_error_questions/
 
-git pull
+git pull --ff-only
 
 cd $QDIR
 
