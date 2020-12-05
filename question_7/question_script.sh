@@ -16,9 +16,9 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-echo y | sudo gem uninstall -aIx rails
-echo y | sudo gem uninstall -aIx railties
-echo y | sudo gem install rails -v 6.0.0
+echo y | gem uninstall -aIx rails
+echo y | gem uninstall -aIx railties
+echo y | gem install rails -v 6.0.0
 sed -i .bak '/rbenv init/d' ~/.$ENV_FILE
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 source ~/.$ENV_FILE
