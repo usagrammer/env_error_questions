@@ -8,8 +8,11 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
+yarn install --check-files
+
 gem uninstall -aIx mysql2
 
+brew services stop mysql@$MYSQL_VER
 mysql.server stop
 brew uninstall mysql@$MYSQL_VER
 rm -rf /usr/local/var/mysql
@@ -40,6 +43,7 @@ source ~/.$ENV_FILE
 rm /tmp/mysql.sock
 rm /tmp/mysql.sock.lock
 pkill -kill -f mysql
+brew services start mysql@$MYSQL_VER
 mysql.server start
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh

@@ -8,7 +8,7 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-gem uninstall rails -v 5.0.0
+gem uninstall rails -v 6.0.0
 sed -i .bak '/rbenv init/d' ~/.$ENV_FILE
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 source ~/.$ENV_FILE
@@ -31,7 +31,7 @@ ERROR:  While executing gem ... (Gem::FilePermissionError)
 
 gem install railsが通常通り成功するようにしてあげてください。
 
-gem install rails -v 5.0.0
+gem install rails -v 6.0.0
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 "

@@ -8,8 +8,9 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-gem install rails -v 5.2.4
+gem install rails -v 6.0.0
 bundle
+yarn install --check-files
 rails d devise user
 rails d devise:install
 rails g devise user

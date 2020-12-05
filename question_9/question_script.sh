@@ -8,9 +8,10 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-gem install rails -v 5.2.4
+gem install rails -v 6.0.0
 bundle config --delete without
 bundle install --without development test
+yarn install --check-files
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
