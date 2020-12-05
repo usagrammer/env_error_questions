@@ -8,8 +8,9 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-gem uninstall rails -v 5.1.0
-gem uninstall railties -v 5.1.0
+gem uninstall -aIx rails
+gem uninstall -aIx railties
+gem install rails -v 6.0.0
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
@@ -24,13 +25,13 @@ rails newで次のエラーが発生して上手くいかないようです。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-find_spec_for_exe': can't find gem railties (= 5.1.0) with executable rails (Gem::GemNotFoundException)
+find_spec_for_exe': can't find gem railties (= 6.0.2) with executable rails (Gem::GemNotFoundException)
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 次のコマンドが成功するようにしてください。
 
-rails _5.1.0_ new env_error_rails_new -d mysql
+rails _6.0.2_ new env_error_rails_new -d mysql
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 "
