@@ -8,10 +8,12 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
+yarn install --check-files
 gem install rails -v 6.0.0
+bundle install
+rm Gemfile.lock
 bundle config --delete without
 bundle install --without development test
-yarn install --check-files
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
@@ -26,8 +28,7 @@ rails sで以下のエラーが発生して上手くいかないようです。�
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-rails aborted!
-LoadError: Could not load the 'listen' gem. Add gem 'listen' to the development group of your Gemfile
+cannot load such file -- spring/watcher (LoadError)
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
