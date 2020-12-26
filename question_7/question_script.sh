@@ -1,4 +1,4 @@
-ENV_QUESTION_NUMBER="6問目_"
+ENV_QUESTION_NUMBER="7問目_"
 
 printf "\e[31m
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -16,14 +16,15 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-echo y | sudo gem uninstall rails -v 5.1.0
-echo y | sudo gem uninstall railties -v 5.1.0
+echo y | gem uninstall -aIx rails
+echo y | gem uninstall -aIx railties
+echo y | gem install rails -v 6.0.0
 sed -i .bak '/rbenv init/d' ~/.$ENV_FILE
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 source ~/.$ENV_FILE
 
-echo y | sudo gem uninstall rails -v 5.1.0
-echo y | sudo gem uninstall railties -v 5.1.0
+echo y | sudo gem uninstall -aIx rails
+echo y | sudo gem uninstall -aIx railties
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
@@ -48,7 +49,7 @@ You can then rerun your "rails" command.
 
 次のコマンドが成功するようにしてください。
 
-rails _5.1.0_ new env_error_rails_new -d mysql
+rails _6.0.2_ new env_error_rails_new -d mysql
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 "

@@ -1,4 +1,4 @@
-OPENSSL_VER=($(brew list | grep openssl@))
+OPENSSL_VER=($(brew list --formula | grep openssl@))
 if [[ -z "$OPENSSL_VER" ]] ; then
   printf "\e[31m
   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
