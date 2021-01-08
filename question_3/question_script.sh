@@ -1,4 +1,4 @@
-ENV_QUESTION_NUMBER="2問目_"
+ENV_QUESTION_NUMBER="3問目_"
 source ~/projects/env_error_questions/env_error_tools/script.sh
 
 if [[ $SETTINGS_COMPLETE != "true" ]] ; then
@@ -8,11 +8,8 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-sed -i .bak '/mysql@/d' ~/.$ENV_FILE
-mysql.server stop
-rm /tmp/mysql.sock
-rm /tmp/mysql.sock.lock
-pkill -kill -f mysql
+gem install irb
+sed -i .bak '/rbenv init/d' ~/.$ENV_FILE
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 source ~/.$ENV_FILE
 
@@ -25,17 +22,15 @@ source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-初めて環境構築をしているそうですがmysqlを起動しようとすると次のエラーが出てしまうようです。
+基礎カリキュラムでirbを使うドリルに取り組んでいるのですがirbで日本語が使えないようです。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+## 「あいうえお」と入力すると・・・
 
-zsh: command not found: mysql.server
-
+irb(main):001:0> \U+FFE3
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-次のコマンドでmysqlを起動できるようにしてあげてください。
-
-mysql.server start
+irbで日本語が使えるようにしてあげてください。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 "
