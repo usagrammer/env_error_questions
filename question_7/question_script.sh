@@ -1,12 +1,4 @@
 ENV_QUESTION_NUMBER="7問目_"
-
-printf "\e[31m
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Macのパスワードを入力してください。
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\e[m
-"
-sudo cd ..
-
 source ~/projects/env_error_questions/env_error_tools/script.sh
 
 if [[ $SETTINGS_COMPLETE != "true" ]] ; then
@@ -16,15 +8,10 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-echo y | gem uninstall -aIx rails
-echo y | gem uninstall -aIx railties
-echo y | gem install rails -v 6.0.0
-sed -i .bak '/rbenv init/d' ~/.$ENV_FILE
-PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-source ~/.$ENV_FILE
-
-echo y | sudo gem uninstall -aIx rails
-echo y | sudo gem uninstall -aIx railties
+bundle install
+yarn install --check-files
+rails db:drop
+rails db:create
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
@@ -35,21 +22,19 @@ source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-rails newで次のエラーが発生して上手くいかないようです。
+rails db:migrateを実行すると次のエラーが発生してうまくいかないようです。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Rails is not currently installed on this system. To get the latest version, simply type:
+rails aborted!
+StandardError: An error has occurred, all later migrations canceled:
 
-    $ sudo gem install rails
-
-You can then rerun your "rails" command.
+Mysql2::Error: Specified key was too long; max key length is 767 bytes
+/Users/tech-camo/projects/env_error_questions/question_7/db/migrate/20210108053529_devise_create_users.rb:39:in change
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-次のコマンドが成功するようにしてください。
-
-rails _6.0.2_ new env_error_rails_new -d mysql
+rails db:migrateが成功するようにしてあげてください。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 "

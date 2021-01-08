@@ -1,4 +1,12 @@
-ENV_QUESTION_NUMBER="1問目_"
+ENV_QUESTION_NUMBER="2問目_"
+
+printf "\e[31m
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Macのパスワードを入力してください。
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\e[m
+"
+sudo cd ..
+
 source ~/projects/env_error_questions/env_error_tools/script.sh
 
 if [[ $SETTINGS_COMPLETE != "true" ]] ; then
@@ -8,10 +16,15 @@ fi
 
 ENV_QUESTION_NUMBER=""
 
-gem install irb
+echo y | gem uninstall -aIx rails
+echo y | gem uninstall -aIx railties
+# echo y | gem install rails -v 6.0.0
 sed -i .bak '/rbenv init/d' ~/.$ENV_FILE
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 source ~/.$ENV_FILE
+
+echo y | sudo gem uninstall -aIx rails
+echo y | sudo gem uninstall -aIx railties
 
 source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
@@ -22,15 +35,21 @@ source ~/projects/env_error_questions/env_error_tools/setting_completed.sh
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-基礎カリキュラムでirbを使うドリルに取り組んでいるのですがirbで日本語が使えないようです。
+rails newで次のエラーが発生して上手くいかないようです。
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-## 「あいうえお」と入力すると・・・
 
-irb(main):001:0> \U+FFE3
+Rails is not currently installed on this system. To get the latest version, simply type:
+
+    $ sudo gem install rails
+
+You can then rerun your "rails" command.
+
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-irbで日本語が使えるようにしてあげてください。
+次のコマンドが成功するようにしてください。
+
+rails _6.0.0_ new env_error_rails_new -d mysql
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 "
